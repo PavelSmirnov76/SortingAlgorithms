@@ -2,7 +2,7 @@
 
 namespace SortingAlgorithmsConsoleView.Menu
 {
-    public class MenuWriterHelper
+    public class MenuWriterHelper : IWriterHelper
     {
         private readonly IPrinterService printerService;
 
@@ -13,9 +13,10 @@ namespace SortingAlgorithmsConsoleView.Menu
 
         public void WriteChoiseSortingMenu()
         {
-            printerService.Print("Выберете вариант сортировки.");
-            printerService.Print("1 Сортировка пузырьком.");
-            printerService.Print("2 Быстрая сортировка.");
+            printerService.Print("Выберете вариант сортировки. \n" +
+                                 "1 Сортировка пузырьком. \n" +
+                                 "2 Быстрая сортировка."
+                                 );
         }
 
         public void WriteCoiseArrayMenu()

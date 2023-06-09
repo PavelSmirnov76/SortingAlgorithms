@@ -2,14 +2,18 @@
 using SortingAlgorithmsConsoleView.Services.ReaderService;
 using SortingAlgorithmsConsoleView.Services.PrinterService;
 
-namespace SortingAlgoritmsConsoleView {
+namespace SortingAlgoritmsConsoleView 
+{
     internal class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
-            var menu = new Menu(new MenuWriterHelper(new ConsolePrinterService()), new ConsoleReaderService());
-
-            menu.OpenMenu();
+             var menu = new Menu(new MenuWriterHelper(new ConsolePrinterService()), new ChoiseHelper(new ConsoleReaderService()));
+            do
+            {
+                menu.OpenMenu();
+            }
+            while (true);
         }
     }
 }

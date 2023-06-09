@@ -1,7 +1,4 @@
-﻿using SortingAlgorithms;
-using SortingAlgorithmsConsoleView.Services.ReaderService;
-
-namespace SortingAlgorithmsConsoleView.Menu
+﻿namespace SortingAlgorithmsConsoleView.Menu
 {
     public enum SortOptions
     {
@@ -10,66 +7,33 @@ namespace SortingAlgorithmsConsoleView.Menu
     }
     public class Menu
     {
-        private readonly MenuWriterHelper menuWriterHelper;
-        private readonly IReaderService readerService;
+        private readonly IWriterHelper menuWriterHelper;
+        private readonly IChoiseHelper choiseHelper;
 
 
-        public Menu(MenuWriterHelper menuWriterHelper, IReaderService readerService )
+        public Menu(IWriterHelper menuWriterHelper, IChoiseHelper choiseHelper)
         {
-            this.readerService = readerService;
+            this.choiseHelper = choiseHelper;
             this.menuWriterHelper = menuWriterHelper;
         }
         public void OpenMenu()
         {
-            do
+
+            try
             {
-                try
-                {
-                    menuWriterHelper.WriteCoiseArrayMenu();
-                    var array = ChoiseArray();
+                menuWriterHelper.WriteCoiseArrayMenu();
+                var array = choiseHelper.ChoiseArray();
 
-                    menuWriterHelper.WriteChoiseSortingMenu();
-                    var sortingAlgorithm = ChoiseSorting();
+                menuWriterHelper.WriteChoiseSortingMenu();
+                var sortingAlgorithm = choiseHelper.ChoiseSorting();
 
-                    var sortedArray = sortingAlgorithm.Sort(array);
-                    menuWriterHelper.WriteSortedArray(sortedArray);
-                }
-                catch (Exception ex)
-                {
-                    menuWriterHelper.WriteException(ex.Message);
-                }
+                var sortedArray = sortingAlgorithm.Sort(array);
+                menuWriterHelper.WriteSortedArray(sortedArray);
             }
-            while (true);
-        }
-
-        private ISortingAlgorithm ChoiseSorting()
-        {
-            ISortingAlgorithm sortingAlgorithm = new BubbleSorting();
-
-            switch (int.Parse(readerService.ReadLine()))
+            catch (Exception ex)
             {
-                case (int)SortOptions.Bubble:
-                    {
-                        sortingAlgorithm = new BubbleSorting();
-                        break;
-                    }
-                case (int)SortOptions.Quick:
-                    {
-                        sortingAlgorithm = new QuickSorting();
-                        break;
-                    }
-                default:
-                    {
-                        throw new Exception("Выбран не верный пункт меню");
-                    }
+                menuWriterHelper.WriteException(ex.Message);
             }
-
-            return sortingAlgorithm;
-        }
-
-        private int[] ChoiseArray()
-        {
-            return readerService.ReadLine().Split().Select(int.Parse).ToArray();
-        }
+        }   
     }
 }
