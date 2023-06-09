@@ -30,7 +30,7 @@ namespace SortingAlgorithmsConsoleView.Menu
                     }
                 default:
                     {
-                        throw new Exception("Выбран не верный пункт меню");
+                        throw new ArgumentOutOfRangeException("Выбран не верный пункт меню");
                     }
             }
 
